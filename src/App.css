@@ -1,0 +1,24 @@
+.header {
+  align-items: center;
+  border-bottom: 1px solid #282c34;
+  color: #282c34;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.1rem 1rem;
+  margin-bottom: 1em;
+}
+
+.main {
+  display: flex;
+  justify-content: space-around;
+}
+
+.board {
+  height: 20em;
+  width: 20em;
+  border: 1px solid #282c34;
+}
+
+button {
+  padding: 0.5rem 1rem;
+}
