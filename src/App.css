@@ -13,12 +13,17 @@
   justify-content: space-around;
 }
 
-.board {
-  height: 20em;
-  width: 20em;
-  border: 1px solid #282c34;
-}
-
 button {
   padding: 0.5rem 1rem;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 1em;
+  height: 1em;
+  border: 1px solid red;
+  margin: 0.05em;
 }
