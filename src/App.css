@@ -27,3 +27,7 @@ button {
   border: 1px solid red;
   margin: 0.05em;
 }
+
+.cell.snake {
+  background-color: black;
+}

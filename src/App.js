@@ -1,5 +1,5 @@
 import "./App.css";
-import GameContext from "./GameContext";
+import GameContext, { useGameState } from "./GameContext";
 import { initialState, reducer } from "./state";
 
 const Header = () => {
@@ -14,7 +14,13 @@ const Header = () => {
 const dimensions = 25;
 
 const Cell = ({ coordinates }) => {
-  return <div className='cell'></div>;
+  const state = useGameState();
+  const classNames = ["cell"];
+  if (!!state.snake.find(([x, y]) => x === coordinates[0] && y === coordinates[1])) {
+    classNames.push("snake");
+  }
+
+  return <div className={classNames.join(" ")}></div>;
 };
 
 const Row = ({ yIndex }) => {

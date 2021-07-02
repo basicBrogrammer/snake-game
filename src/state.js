@@ -1,5 +1,5 @@
 // Possible Status values: 'NEW' | 'ON' | 'PAUSE' | 'ENDED'
-export const initialState = { status: "NEW", interval: 1000 };
+export const initialState = { status: "NEW", interval: 1000, snake: [[0, 0]] };
 
 export const reducer = (state, action) => {
   console.log(`Type: ${action.type}`);
