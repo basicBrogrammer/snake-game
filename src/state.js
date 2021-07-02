@@ -1,5 +1,25 @@
 // Possible Status values: 'NEW' | 'ON' | 'PAUSE' | 'ENDED'
-export const initialState = { status: "NEW", interval: 1000, snake: [[0, 0]] };
+export const initialState = { status: "NEW", interval: 1000, snake: [[0, 0]], direction: "RIGHT" };
+
+const moveSnakeSegment = ([x, y], direction) => {
+  switch (direction) {
+    case "UP":
+      return [x, y - 1];
+    case "DOWN":
+      return [x, y + 1];
+    case "LEFT":
+      return [x - 1, y];
+    case "RIGHT":
+      return [x + 1, y];
+    default:
+      return [x, y];
+  }
+};
+
+const moveSnake = (state) => {
+  const snake = state.snake.map((segment) => moveSnakeSegment(segment, state.direction));
+  return { ...state, snake };
+};
 
 export const reducer = (state, action) => {
   console.log(`Type: ${action.type}`);
@@ -18,8 +38,7 @@ export const reducer = (state, action) => {
       return { ...state, status: "ENDED" };
 
     case "TICK":
-      console.warn("TICK action has not been implemented");
-      return state;
+      return moveSnake(state);
 
     case "KEYPRESS":
       console.warn("KEYPRESS action has not been implemented");

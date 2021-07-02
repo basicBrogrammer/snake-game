@@ -1,17 +1,27 @@
 import "./App.css";
-import GameContext, { useGameState } from "./GameContext";
+import GameContext, { useGameDispatch, useGameState } from "./GameContext";
 import { initialState, reducer } from "./state";
 
+const dimensions = 25;
+
+const statusAction = {
+  ON: "PAUSE",
+  PAUSED: "RESUME",
+  NEW: "START",
+  ENDED: "START",
+};
+
 const Header = () => {
+  const { status } = useGameState();
+  const dispatch = useGameDispatch();
   return (
     <header className='header'>
       <p>React Game</p>
       <p>Score: (TBD)</p>
-      <button>Play</button>
+      <button onClick={() => dispatch({ type: statusAction[status] })}>{statusAction[status]}</button>
     </header>
   );
 };
-const dimensions = 25;
 
 const Cell = ({ coordinates }) => {
   const state = useGameState();
