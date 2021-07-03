@@ -49,8 +49,18 @@ export const reducer = (state, action) => {
       }
 
     case "KEYPRESS":
-      console.warn("KEYPRESS action has not been implemented");
-      return state;
+      const keyToDirection = {
+        ArrowUp: "UP",
+        ArrowRight: "RIGHT",
+        ArrowDown: "DOWN",
+        ArrowLeft: "LEFT",
+      };
+
+      if (Object.keys(keyToDirection).includes(action.payload)) {
+        return moveSnake({ ...state, direction: keyToDirection[action.payload] });
+      } else {
+        return state;
+      }
 
     default:
       return state;
