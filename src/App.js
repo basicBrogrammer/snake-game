@@ -1,6 +1,6 @@
 import "./App.css";
 import GameContext, { useGameDispatch, useGameState } from "./GameContext";
-import { initialState, reducer, dimensions } from "./state";
+import { initialState, reducer, dimensions, coordinatesEq } from "./state";
 
 const statusAction = {
   ON: "PAUSE",
@@ -33,8 +33,13 @@ const GameOverBanner = () => {
 const Cell = ({ coordinates }) => {
   const state = useGameState();
   const classNames = ["cell"];
-  if (!!state.snake.find(([x, y]) => x === coordinates[0] && y === coordinates[1])) {
+
+  if (!!state.snake.find((segment) => coordinatesEq(segment, coordinates))) {
     classNames.push("snake");
+  }
+
+  if (coordinatesEq(coordinates, state.apple)) {
+    classNames.push("apple");
   }
 
   return <div className={classNames.join(" ")}></div>;

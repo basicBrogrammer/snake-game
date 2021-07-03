@@ -46,3 +46,7 @@ button {
 .cell.snake {
   background-color: black;
 }
+
+.cell.apple {
+  background-color: red;
+}

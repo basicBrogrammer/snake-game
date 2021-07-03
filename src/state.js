@@ -1,6 +1,10 @@
 // Possible Status values: 'NEW' | 'ON' | 'PAUSE' | 'ENDED'
-export const initialState = { status: "NEW", interval: 500, snake: [[0, 0]], direction: "RIGHT" };
+export const initialState = { status: "NEW", interval: 500, snake: [[0, 0]], direction: "RIGHT", apple: [] };
 export const dimensions = 25;
+export const coordinatesEq = ([x1, y1], [x2, y2]) => x1 === x2 && y1 === y2;
+
+const randomNumInDimensions = () => Math.floor(Math.random() * dimensions);
+const randomCoordinates = () => [randomNumInDimensions(), randomNumInDimensions()];
 
 const moveSnakeSegment = ([x, y], direction) => {
   switch (direction) {
@@ -28,7 +32,7 @@ export const reducer = (state, action) => {
 
   switch (action.type) {
     case "START":
-      return { ...initialState, status: "ON" };
+      return { ...initialState, status: "ON", apple: randomCoordinates() };
 
     case "RESUME":
       return { ...state, status: "ON" };
