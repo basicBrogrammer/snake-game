@@ -1,5 +1,6 @@
 // Possible Status values: 'NEW' | 'ON' | 'PAUSE' | 'ENDED'
-export const initialState = { status: "NEW", interval: 1000, snake: [[0, 0]], direction: "RIGHT" };
+export const initialState = { status: "NEW", interval: 500, snake: [[0, 0]], direction: "RIGHT" };
+export const dimensions = 25;
 
 const moveSnakeSegment = ([x, y], direction) => {
   switch (direction) {
@@ -20,6 +21,7 @@ const moveSnake = (state) => {
   const snake = state.snake.map((segment) => moveSnakeSegment(segment, state.direction));
   return { ...state, snake };
 };
+const outOfGrid = ([x, y]) => x < 0 || y < 0 || x >= dimensions || y >= dimensions;
 
 export const reducer = (state, action) => {
   console.log(`Type: ${action.type}`);
@@ -38,7 +40,13 @@ export const reducer = (state, action) => {
       return { ...state, status: "ENDED" };
 
     case "TICK":
-      return moveSnake(state);
+      const newState = moveSnake(state);
+
+      if (outOfGrid(newState.snake[0])) {
+        return { ...state, status: "ENDED" };
+      } else {
+        return newState;
+      }
 
     case "KEYPRESS":
       console.warn("KEYPRESS action has not been implemented");

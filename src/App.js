@@ -1,8 +1,6 @@
 import "./App.css";
 import GameContext, { useGameDispatch, useGameState } from "./GameContext";
-import { initialState, reducer } from "./state";
-
-const dimensions = 25;
+import { initialState, reducer, dimensions } from "./state";
 
 const statusAction = {
   ON: "PAUSE",
@@ -21,6 +19,15 @@ const Header = () => {
       <button onClick={() => dispatch({ type: statusAction[status] })}>{statusAction[status]}</button>
     </header>
   );
+};
+const GameOverBanner = () => {
+  const { status } = useGameState();
+
+  return status === "ENDED" ? (
+    <div className='game-over'>
+      <p>GAME OVER</p>
+    </div>
+  ) : null;
 };
 
 const Cell = ({ coordinates }) => {
@@ -53,6 +60,7 @@ function App() {
       <Header />
       <main className='main'>
         <div className='board'>
+          <GameOverBanner />
           <Grid />
         </div>
       </main>
