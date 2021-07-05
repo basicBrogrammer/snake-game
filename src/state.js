@@ -22,8 +22,16 @@ const moveSnakeSegment = ([x, y], direction) => {
 };
 
 const moveSnake = (state) => {
-  const snake = state.snake.map((segment) => moveSnakeSegment(segment, state.direction));
-  return { ...state, snake };
+  const nextHead = moveSnakeSegment(state.snake[0], state.direction);
+
+  if (coordinatesEq(nextHead, state.apple)) {
+    const newApple = randomCoordinates();
+    return { ...state, apple: newApple, snake: [nextHead, ...state.snake] };
+  } else {
+    const snakeCopy = [...state.snake];
+    snakeCopy.pop(); // remove tail
+    return { ...state, snake: [nextHead, ...snakeCopy] };
+  }
 };
 const outOfGrid = ([x, y]) => x < 0 || y < 0 || x >= dimensions || y >= dimensions;
 

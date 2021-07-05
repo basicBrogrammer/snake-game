@@ -9,6 +9,7 @@ export const useGameDispatch = () => useContext(GameDispatch);
 
 export default function GameContext({ reducer, initialState, children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+
   const onKeyPress = ({ code }) => {
     dispatch({ type: "KEYPRESS", payload: code });
   };
