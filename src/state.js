@@ -1,5 +1,5 @@
 // Possible Status values: 'NEW' | 'ON' | 'PAUSE' | 'ENDED'
-export const initialState = { status: "NEW", interval: 500, snake: [[0, 0]], direction: "RIGHT", apple: [] };
+export const initialState = { status: "NEW", interval: 500, snake: [[0, 0]], direction: "RIGHT", apple: [], score: 0 };
 export const dimensions = 25;
 export const coordinatesEq = ([x1, y1], [x2, y2]) => x1 === x2 && y1 === y2;
 
@@ -26,7 +26,13 @@ const moveSnake = (state) => {
 
   if (coordinatesEq(nextHead, state.apple)) {
     const newApple = randomCoordinates();
-    return { ...state, apple: newApple, snake: [nextHead, ...state.snake] };
+    return {
+      ...state,
+      apple: newApple,
+      snake: [nextHead, ...state.snake],
+      score: state.score + 10 + state.snake.length,
+      interval: state.interval - 5 * state.snake.length,
+    };
   } else {
     const snakeCopy = [...state.snake];
     snakeCopy.pop(); // remove tail

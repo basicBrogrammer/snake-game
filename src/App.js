@@ -10,12 +10,12 @@ const statusAction = {
 };
 
 const Header = () => {
-  const { status } = useGameState();
+  const { status, score } = useGameState();
   const dispatch = useGameDispatch();
   return (
     <header className='header'>
       <p>React Game</p>
-      <p>Score: (TBD)</p>
+      <p>Score: {score}</p>
       <button onClick={() => dispatch({ type: statusAction[status] })}>{statusAction[status]}</button>
     </header>
   );
